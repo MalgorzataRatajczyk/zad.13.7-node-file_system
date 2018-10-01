@@ -2,6 +2,7 @@ var os = require('os'); //zaimportowanie wbudowanego modułu wewnętrzengo "os" 
 var OSinfo = require('./modules/OSInfo'); //zaimportowanie stworzonego modułu OSinfo z katalogu modules
 var EventEmitter = require("events").EventEmitter; //zaimportowanie modułu event i wyciągnięcie zniego klasy EventEmitter
 
+
 var emitter = new EventEmitter(); //utworzenie obiektu na podstawie klasy EventEmitter
 //dodajmy dwa nasłuchiwania na zdarzenia:
 emitter.on("beforeCommand", function (instruction) { //zdarzenie - beforeCommand
@@ -11,7 +12,11 @@ emitter.on("afterCommand", function () { //zdarzenie - afterCommand
     console.log('Finished command'); //funkcja, która wykona się po wystąpieniu zdarzenia
 });
 
-
+var fs = require('fs'); //zaimportowanie modułu fs do pobierania informacji o pliku / folderze
+// skrypt wyświetlający informacje o obrazku
+fs.stat('./cats.jpg', function(err, stats) {
+    console.log(stats);
+});
 
 //ustawienia odpowiedniego enkodowania przyjmowanych danych
 process.stdin.setEncoding('utf-8');
