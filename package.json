@@ -15,7 +15,8 @@
   "author": "Malgorzata",
   "license": "ISC",
   "dependencies": {
-    "colors": "^1.3.2"
+    "colors": "^1.3.2",
+    "stat-mode": "^0.2.2"
   },
   "devDependencies": {}
 }
