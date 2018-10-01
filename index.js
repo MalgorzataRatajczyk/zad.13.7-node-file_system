@@ -40,6 +40,18 @@ fs.readFile('./tekst.txt', 'utf-8', function(err, data) {
 
 });
 
+fs.readdir('./modules/', 'utf-8', function(err, files) {
+    console.log('Lista plików w katalogu MODULES'.green);
+    console.log(files);
+    fs.writeFile('./lista_plików.txt', files, function (err) {
+        if (err) throw err;
+        console.log('Plik został zapisany'.green);
+        fs.readFile('./lista_plików.txt', 'utf-8', function(err, data) {
+            console.log('Dane po zapisie'.green)
+            console.log(data);
+        });
+    });
+});
 //ustawienia odpowiedniego enkodowania przyjmowanych danych
 process.stdin.setEncoding('utf-8');
 // ustawienie nasłuchiwania na zdarzenia odczytu
