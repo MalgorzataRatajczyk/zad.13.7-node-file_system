@@ -13,9 +13,16 @@ emitter.on("afterCommand", function () { //zdarzenie - afterCommand
 });
 
 var fs = require('fs'); //zaimportowanie modułu fs do pobierania informacji o pliku / folderze
+var StatMode = require('stat-mode');
 // skrypt wyświetlający informacje o obrazku
 fs.stat('./cats.jpg', function(err, stats) {
+    var statMode = new StatMode(stats);
+    console.log(statMode.toString());
     console.log(stats);
+});
+// kod, który ma za zadanie odczytać plik tekst.txt i wyświetlić jego zawartość w konsoli
+fs.readFile('./tekst.txt', function(err, data) {
+    console.log(data);
 });
 
 //ustawienia odpowiedniego enkodowania przyjmowanych danych
