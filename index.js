@@ -1,15 +1,18 @@
 var os = require('os'); //zaimportowanie wbudowanego modułu wewnętrzengo "os" (dostarczonego razem z pakietem instalacyjnym Node.js)
 var OSinfo = require('./modules/OSInfo'); //zaimportowanie stworzonego modułu OSinfo z katalogu modules
 var EventEmitter = require("events").EventEmitter; //zaimportowanie modułu event i wyciągnięcie zniego klasy EventEmitter
-
+var colors = require('colors');
 
 var emitter = new EventEmitter(); //utworzenie obiektu na podstawie klasy EventEmitter
 //dodajmy dwa nasłuchiwania na zdarzenia:
 emitter.on("beforeCommand", function (instruction) { //zdarzenie - beforeCommand
     console.log('You wrote: ' + instruction + ', trying to run command'); //funkcja, która wykona się przed wystąpieniem zdarzenia
+
 });
+
 emitter.on("afterCommand", function () { //zdarzenie - afterCommand
     console.log('Finished command'); //funkcja, która wykona się po wystąpieniu zdarzenia
+
 });
 
 var fs = require('fs'); //zaimportowanie modułu fs do pobierania informacji o pliku / folderze
@@ -18,11 +21,23 @@ var StatMode = require('stat-mode');
 fs.stat('./cats.jpg', function(err, stats) {
     var statMode = new StatMode(stats);
     console.log(statMode.toString());
-    console.log(stats);
+    // console.log(stats);
 });
-// kod, który ma za zadanie odczytać plik tekst.txt i wyświetlić jego zawartość w konsoli
-fs.readFile('./tekst.txt', function(err, data) {
+
+// kod, który ma za zadanie najpierw odczytać zawartość pliku, następnie zapisać dane i znowu odczytać plik po zmianie jego zawartości
+fs.readFile('./tekst.txt', 'utf-8', function(err, data) {
+    console.log('Dane przed zapisem!'.blue);
     console.log(data);
+    fs.appendFile('./tekst.txt', '\nA tak wyglądają po zapisie!', function(err) {
+        if (err) throw err;
+        console.log('Zapisano!'.blue);
+        fs.readFile('./tekst.txt', 'utf-8', function(err, data) {
+            console.log('Dane po zapisie'.blue)
+            console.log(data);
+        });
+
+    });
+
 });
 
 //ustawienia odpowiedniego enkodowania przyjmowanych danych
